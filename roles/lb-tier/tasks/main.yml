@@ -1,16 +1,17 @@
 ---
 # tasks file for lb-tier
-- name: http
-  package:
-    name: httpie
-    state: latest
-  notify: restart_HAProxy
 
 - name: install HAProxy
   yum:
     name: haproxy 
     state: latest
   notify: restart_HAProxy
+
+- name: start and enable HAProxy
+  service:
+    name: haproxy
+    state: started
+    enabled: yes
 
 - name: configure haproxy
   template:
